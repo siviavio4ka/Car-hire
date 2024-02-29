@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Car-hire.DAL", "Car-hire.DAL\Car-hire.DAL.csproj", "{BA03C1FC-81F9-4B77-9C0F-DDEDC66DB572}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Car-hire.BLL", "Car-hire.BLL\Car-hire.BLL.csproj", "{77D54A7A-7226-4D23-9E8C-7CB776BAD97F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{BA03C1FC-81F9-4B77-9C0F-DDEDC66DB572}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA03C1FC-81F9-4B77-9C0F-DDEDC66DB572}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA03C1FC-81F9-4B77-9C0F-DDEDC66DB572}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77D54A7A-7226-4D23-9E8C-7CB776BAD97F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77D54A7A-7226-4D23-9E8C-7CB776BAD97F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77D54A7A-7226-4D23-9E8C-7CB776BAD97F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77D54A7A-7226-4D23-9E8C-7CB776BAD97F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
