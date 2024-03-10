@@ -14,6 +14,9 @@ builder.Logging.ConfigureSerilog();
 
 var app = builder.Build();
 
+var loggerManager = app.Services.GetRequiredService<ILoggerManager>();
+app.ConfigureExceptionHandler(loggerManager);
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
