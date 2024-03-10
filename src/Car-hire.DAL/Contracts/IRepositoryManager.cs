@@ -6,5 +6,5 @@ public interface IRepositoryManager
     ICustomerRepository Customer { get; }
     IEmployeeRepository Employee { get; }
     IOrderRepository Order { get; }
-    void Save();
+    Task SaveAsync();
 }

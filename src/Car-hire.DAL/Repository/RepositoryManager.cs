@@ -23,5 +23,5 @@ public class RepositoryManager : IRepositoryManager
     public ICustomerRepository Customer => _customerRepository.Value;
     public IEmployeeRepository Employee => _employeeRepository.Value;
     public IOrderRepository Order => _orderRepository.Value;
-    public void Save() => _applicationContext.SaveChanges();
+    public async Task SaveAsync() => await _applicationContext.SaveChangesAsync();
 }
