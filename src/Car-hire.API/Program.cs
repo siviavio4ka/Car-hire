@@ -1,3 +1,4 @@
+using Car_hire.API.Extensions;
 using Car_hire.DAL;
 using Car_hire.DAL.Infrastructure.Triggers;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
         triggerOptions.AddTrigger<CalculateDeadlineBeforeTrigger>(ServiceLifetime.Transient);
     });
 });
+builder.Logging.ConfigureSerilog();
 
 var app = builder.Build();
 
