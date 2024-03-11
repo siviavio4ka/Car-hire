@@ -43,6 +43,13 @@ public class OrderController : ControllerBase
         return Ok(orders);
     }
 
+    [HttpPost("{orderId:int}/close")]
+    public async Task<IActionResult> OrderClosing(int orderId)
+    {
+        await _service.OrderService.OrderClosingAsync(orderId, false, true);
+        return NoContent();
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateOrder([FromBody] OrderForCreationDto? order)
     {

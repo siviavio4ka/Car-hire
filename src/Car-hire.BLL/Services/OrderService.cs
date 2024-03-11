@@ -2,6 +2,7 @@ using AutoMapper;
 using Car_hire.BLL.Contracts;
 using Car_hire.DAL.Contracts;
 using Car_hire.DAL.Entities.DTOs.OrderDTO;
+using Car_hire.DAL.Entities.Enums;
 using Car_hire.DAL.Entities.Exceptions.NotFoundException;
 using Car_hire.DAL.Entities.Models;
 
@@ -48,7 +49,6 @@ internal sealed class OrderService : IOrderService
     public async Task<IEnumerable<OrderWithCustomerDto>> GetOrdersWithCustomersAsync(bool trackChanges)
     {
         var ordersWithCustomers = await _repository.Order.GetOrdersWithCustomersAsync(trackChanges);
-        // var ordersWithCustomersDto = _mapper.Map<IEnumerable<(string customerName, DateTime orderDate, double totalAmount)>>(ordersWithCustomers);
         var ordersWithCustomersDto = ordersWithCustomers
             .Select(oc => new OrderWithCustomerDto
             {
@@ -58,6 +58,19 @@ internal sealed class OrderService : IOrderService
             })
         .ToList();
         return ordersWithCustomersDto;
+    }
+    
+    public async Task OrderClosingAsync(int orderId, bool orderTrackChanges, bool carTrackChanges)
+    {
+        var order = await _repository.Order.GetOrderAsync(orderId, orderTrackChanges)
+            ?? throw new OrderNotFoundException(orderId);
+        
+        var car = await _repository.Car.GetCarAsync(order.CarId, carTrackChanges)
+            ?? throw new CarNotFoundException(order.CarId);
+        
+
+        car.Status = Status.Available;
+        await _repository.SaveAsync();
     }
 
     public async Task CreateOrderAsync(OrderForCreationDto order)
