@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Car-hire.DAL\Car-hire.DAL.csproj" />
+    <ProjectReference Include="..\Car-hire.BLL\Car-hire.BLL.csproj" />
   </ItemGroup>
 
 </Project>

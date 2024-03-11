@@ -11,6 +11,7 @@ builder.Services.ConfigureDbContext();
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureLoggerManager();
 builder.Logging.ConfigureSerilog();
+builder.Services.ConfigureServiceManager();
 
 var app = builder.Build();
 
