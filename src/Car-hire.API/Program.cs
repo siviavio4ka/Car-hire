@@ -12,6 +12,7 @@ builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureLoggerManager();
 builder.Logging.ConfigureSerilog();
 builder.Services.ConfigureServiceManager();
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
