@@ -20,7 +20,7 @@ public class CustomerRepository : RepositoryBase<Customer>, ICustomerRepository
             .SingleOrDefaultAsync();
 
     public async Task<IEnumerable<Customer>> GetCustomersByOrderDateAsync(DateTime orderDate, bool trackChanges) =>
-        await FindByCondition(c => c.Orders.Any(o => o.OrderDate.Equals(orderDate)), trackChanges)
+        await FindByCondition(c => c.Orders.Any(o => o.OrderDate.Date.Equals(orderDate.Date)), trackChanges)
             .ToListAsync();
 
     public void CreateCustomer(Customer customer) => Create(customer);
