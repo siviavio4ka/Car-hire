@@ -7,7 +7,7 @@ public interface IOrderRepository
     Task<IEnumerable<Order>> GetAllOrdersAsync(bool trackChanges);
     Task<Order> GetOrderAsync(int orderId, bool trackChanges);
     Task<IEnumerable<Order>> GetOrdersByCustomerIdAsync(int customerId, bool trackChanges);
-    Task<IEnumerable<(string customerName, DateTime orderDate, double totalAmount)>> GetOrdersWithCustomersAsync(bool trackChanges);
+    Task<IEnumerable<(string customerName, List<DateTime> orderDates, double totalAmount)>> GetOrdersWithCustomersAsync(bool trackChanges);
     void CreateOrder(Order order);
     void DeleteOrder(Order order);
 }

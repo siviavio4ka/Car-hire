@@ -23,7 +23,7 @@ public class OrderRepository : RepositoryBase<Order>, IOrderRepository
         await FindByCondition(o => o.CustomerId.Equals(customerId), trackChanges)
             .ToListAsync();
 
-    public async Task<IEnumerable<(string customerName, DateTime orderDate, double totalAmount)>> GetOrdersWithCustomersAsync(bool trackChanges)
+    public async Task<IEnumerable<(string customerName, List<DateTime> orderDates, double totalAmount)>> GetOrdersWithCustomersAsync(bool trackChanges)
     {
         var rentalInfo = await FindAll(trackChanges)
             .Include(o => o.Customer)
@@ -31,7 +31,7 @@ public class OrderRepository : RepositoryBase<Order>, IOrderRepository
             {
                 CustomerName = o.Customer.Name,
                 OrderDate = o.OrderDate,
-                TotalAmount = o.Amount ?? 0 
+                TotalAmount = o.Amount ?? 0
             })
             .ToListAsync();
 
@@ -40,12 +40,12 @@ public class OrderRepository : RepositoryBase<Order>, IOrderRepository
             .Select(group => new
             {
                 CustomerName = group.Key,
-                Orders = group.ToList(),
+                OrderDates = group.Select(info => info.OrderDate).ToList(),
                 TotalAmount = group.Sum(info => info.TotalAmount)
             });
 
-        return groupedInfo.SelectMany(group => group.Orders.Select(order =>
-            (group.CustomerName, order.OrderDate, group.TotalAmount)));
+        return groupedInfo.Select(group =>
+            (group.CustomerName, group.OrderDates, group.TotalAmount));
     }
 
     public void CreateOrder(Order order) => Create(order);
