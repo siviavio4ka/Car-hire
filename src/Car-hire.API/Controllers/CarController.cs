@@ -48,6 +48,9 @@ public class CarController : ControllerBase
     {
         if (car is null)
             return BadRequest("CarForCreationDto object is null");
+
+        if (!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
         
         await _service.CarService.CreateCarAsync(car);
         return Ok();
@@ -58,6 +61,9 @@ public class CarController : ControllerBase
     {
         if (car is null)
             return BadRequest("CarForUpdateDto object is null");
+        
+        if (!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
 
         await _service.CarService.UpdateCarAsync(carId, car, true);
         return NoContent();

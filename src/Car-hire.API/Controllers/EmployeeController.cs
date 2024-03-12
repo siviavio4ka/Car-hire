@@ -34,6 +34,9 @@ public class EmployeeController : ControllerBase
     {
         if (employee is null)
             return BadRequest("EmployeeForCreationDto object is null");
+        
+        if (!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
 
         await _service.EmployeeService.CreateEmployeeAsync(employee);
         return Ok();
@@ -44,6 +47,9 @@ public class EmployeeController : ControllerBase
     {
         if (employee is null)
             return BadRequest("EmployeeForUpdateDto object is null");
+        
+        if (!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
 
         await _service.EmployeeService.UpdateEmployeeAsync(employeeId, employee, true);
         return NoContent();

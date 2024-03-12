@@ -55,6 +55,9 @@ public class OrderController : ControllerBase
     {
         if (order is null)
             return BadRequest("OrderForCreationDto object is null");
+        
+        if (!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
 
         await _service.OrderService.CreateOrderAsync(order);
         return Ok();
@@ -65,6 +68,9 @@ public class OrderController : ControllerBase
     {
         if (order is null)
             return BadRequest("OrderForUpdateDto object is null");
+        
+        if (!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
 
         await _service.OrderService.UpdateOrderAsync(orderId, order, true);
         return NoContent();

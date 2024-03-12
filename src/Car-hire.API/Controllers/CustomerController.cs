@@ -41,6 +41,9 @@ public class CustomerController : ControllerBase
     {
         if (customer is null)
             return BadRequest("CustomerForCreationDto object is null");
+        
+        if (!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
 
         await _service.CustomerService.CreateCustomerAsync(customer);
         return Ok();
@@ -51,6 +54,9 @@ public class CustomerController : ControllerBase
     {
         if (customer is null)
             return BadRequest("CustomerForUpdateDto object is null");
+        
+        if (!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
 
         await _service.CustomerService.UpdateCustomerAsync(customerId, customer, true);
         return NoContent();
