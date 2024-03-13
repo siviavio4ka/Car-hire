@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Car_hire.API.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240307212554_init")]
+    [Migration("20240313220043_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -73,9 +73,6 @@ namespace Car_hire.API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("DriverLicenceNumber")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -91,23 +88,6 @@ namespace Car_hire.API.Migrations
                     b.HasKey("CustomerId");
 
                     b.ToTable("Customers");
-                });
-
-            modelBuilder.Entity("Car_hire.DAL.Entities.Models.Employee", b =>
-                {
-                    b.Property<int>("EmployeeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("EmployeeId"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("EmployeeId");
-
-                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("Car_hire.DAL.Entities.Models.Order", b =>
@@ -130,9 +110,6 @@ namespace Car_hire.API.Migrations
                     b.Property<DateTime>("Deadline")
                         .HasColumnType("timestamp");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("HireHours")
                         .HasColumnType("integer");
 
@@ -147,8 +124,6 @@ namespace Car_hire.API.Migrations
                     b.HasIndex("CarId");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Orders");
                 });
@@ -167,17 +142,9 @@ namespace Car_hire.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Car_hire.DAL.Entities.Models.Employee", "Employee")
-                        .WithMany("Orders")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Car");
 
                     b.Navigation("Customer");
-
-                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("Car_hire.DAL.Entities.Models.Car", b =>
@@ -186,11 +153,6 @@ namespace Car_hire.API.Migrations
                 });
 
             modelBuilder.Entity("Car_hire.DAL.Entities.Models.Customer", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("Car_hire.DAL.Entities.Models.Employee", b =>
                 {
                     b.Navigation("Orders");
                 });

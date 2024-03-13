@@ -43,25 +43,11 @@ namespace Car_hire.API.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     PassportDetails = table.Column<string>(type: "text", nullable: false),
                     Address = table.Column<string>(type: "text", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
-                    DriverLicenceNumber = table.Column<int>(type: "integer", nullable: false)
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.CustomerId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Employees",
-                columns: table => new
-                {
-                    EmployeeId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Employees", x => x.EmployeeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,7 +59,6 @@ namespace Car_hire.API.Migrations
                     OrderNumber = table.Column<int>(type: "integer", nullable: false),
                     CarId = table.Column<int>(type: "integer", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "timestamp", nullable: false),
-                    EmployeeId = table.Column<int>(type: "integer", nullable: false),
                     CustomerId = table.Column<int>(type: "integer", nullable: false),
                     HireHours = table.Column<int>(type: "integer", nullable: false),
                     Deadline = table.Column<DateTime>(type: "timestamp", nullable: false),
@@ -94,12 +79,6 @@ namespace Car_hire.API.Migrations
                         principalTable: "Customers",
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Orders_Employees_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "EmployeeId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -111,11 +90,6 @@ namespace Car_hire.API.Migrations
                 name: "IX_Orders_CustomerId",
                 table: "Orders",
                 column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_EmployeeId",
-                table: "Orders",
-                column: "EmployeeId");
         }
 
         /// <inheritdoc />
@@ -129,9 +103,6 @@ namespace Car_hire.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Customers");
-
-            migrationBuilder.DropTable(
-                name: "Employees");
         }
     }
 }
