@@ -11,8 +11,6 @@ public abstract record OrderForManipulationDto
     public int CarId { get; init; }
     [Required(ErrorMessage = "Order date is required field")]
     public DateTime OrderDate { get; init; }
-    [Required(ErrorMessage = "Employee id is required field")]
-    public int EmployeeId { get; init; }
     [Required(ErrorMessage = "Customer id is required field")]
     public int CustomerId { get; init; }
     [Required(ErrorMessage = "Hire hours is required field")]

@@ -54,12 +54,11 @@ public static class CustomerGenerator
             Name = GenerateName(),
             PassportDetails = GeneratePassportDetails(minValue, maxValue),
             Address = GenerateAddress(numberOfStreet),
-            PhoneNumber = GeneratedPhoneNumber(),
-            DriverLicenceNumber = Random.Next(100000000, 999999999)
+            PhoneNumber = GeneratedPhoneNumber()
         });
 
     private static string GenerateName() =>
-        $"{FirstNames[Random.Next(FirstNames.Count)]}, {LastNames[Random.Next(LastNames.Count)]}";
+        $"{FirstNames[Random.Next(FirstNames.Count)]} {LastNames[Random.Next(LastNames.Count)]}";
 
     private static string GenerateAddress(int numberOfStreet) =>
         $"{Random.Next(1, numberOfStreet)} {Streets[Random.Next(Streets.Count)]}, {Cities[Random.Next(Cities.Count)]}";

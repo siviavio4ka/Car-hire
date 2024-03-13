@@ -4,7 +4,6 @@ public interface IRepositoryManager
 {
     ICarRepository Car { get; }
     ICustomerRepository Customer { get; }
-    IEmployeeRepository Employee { get; }
     IOrderRepository Order { get; }
     Task SaveAsync();
 }

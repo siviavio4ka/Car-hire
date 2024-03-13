@@ -50,13 +50,11 @@ public class ApplicationContext : DbContext
             .HasColumnType("timestamp");
 
         modelBuilder.ApplyConfiguration(new CustomerConfiguration());
-        modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
         modelBuilder.ApplyConfiguration(new CarConfiguration());
         modelBuilder.ApplyConfiguration(new OrderConfiguration());
     }
 
     public DbSet<Car> Cars { get; set; }
     public DbSet<Customer> Customers { get; set; }
-    public DbSet<Employee> Employees { get; set; }
     public DbSet<Order> Orders { get; set; }
 }
