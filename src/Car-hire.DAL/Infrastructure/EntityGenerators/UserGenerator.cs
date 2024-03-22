@@ -2,7 +2,7 @@ using Car_hire.DAL.Entities.Models;
 
 namespace Car_hire.DAL.Infrastructure.EntityGenerators;
 
-public static class CustomerGenerator
+public static class UserGenerator
 {
     private static readonly Random Random = new();
 
@@ -47,10 +47,10 @@ public static class CustomerGenerator
         "44", "29", "33", "232", "25"
     };
 
-    public static IEnumerable<Customer> GenerateCustomer(int count, int minValue, int maxValue, int numberOfStreet) =>
-        Enumerable.Range(1, count).Select(i => new Customer
+    public static IEnumerable<User> GenerateUser(int count, int minValue, int maxValue, int numberOfStreet) =>
+        Enumerable.Range(1, count).Select(i => new User
         {
-            CustomerId = i,
+            UserId = i,
             Name = GenerateName(),
             PassportDetails = GeneratePassportDetails(minValue, maxValue),
             Address = GenerateAddress(numberOfStreet),

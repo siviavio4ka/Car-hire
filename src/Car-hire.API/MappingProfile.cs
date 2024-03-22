@@ -1,7 +1,7 @@
 using AutoMapper;
 using Car_hire.DAL.Entities.DTOs.CarDTO;
-using Car_hire.DAL.Entities.DTOs.CustomerDTO;
 using Car_hire.DAL.Entities.DTOs.OrderDTO;
+using Car_hire.DAL.Entities.DTOs.UserDTO;
 using Car_hire.DAL.Entities.Models;
 
 namespace Car_hire.API;
@@ -14,9 +14,9 @@ public class MappingProfile : Profile
         CreateMap<CarForCreationDto, Car>();
         CreateMap<CarForUpdateDto, Car>();
 
-        CreateMap<Customer, CustomerDto>();
-        CreateMap<CustomerForCreationDto, Customer>();
-        CreateMap<CustomerForUpdateDto, Customer>();
+        CreateMap<User, UserDto>();
+        CreateMap<UserForCreationDto, User>();
+        CreateMap<UserForUpdateDto, User>();
 
         CreateMap<Order, OrderDto>();
         CreateMap<OrderForCreationDto, Order>();

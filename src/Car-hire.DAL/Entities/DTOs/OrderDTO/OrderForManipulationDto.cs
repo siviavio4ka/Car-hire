@@ -11,8 +11,8 @@ public abstract record OrderForManipulationDto
     public int CarId { get; init; }
     [Required(ErrorMessage = "Order date is required field")]
     public DateTime OrderDate { get; init; }
-    [Required(ErrorMessage = "Customer id is required field")]
-    public int CustomerId { get; init; }
+    [Required(ErrorMessage = "User id is required field")]
+    public int UserId { get; init; }
     [Required(ErrorMessage = "Hire hours is required field")]
     [Range(1, int.MaxValue, ErrorMessage = "Hire hours must be a positive number")]
     public int HireHours { get; init; }

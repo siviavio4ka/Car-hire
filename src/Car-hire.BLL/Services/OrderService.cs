@@ -37,27 +37,27 @@ internal sealed class OrderService : IOrderService
         return orderDto;
     }
 
-    public async Task<IEnumerable<OrderDto>> GetOrdersByCustomerIdAsync(int customerId, bool trackChanges)
+    public async Task<IEnumerable<OrderDto>> GetOrdersByUserIdAsync(int userId, bool trackChanges)
     {
-        var orders = await _repository.Order.GetOrdersByCustomerIdAsync(customerId, trackChanges)
-            ?? throw new CustomerNotFoundException(customerId);
+        var orders = await _repository.Order.GetOrdersByUserIdAsync(userId, trackChanges)
+            ?? throw new UserNotFoundException(userId);
 
         var ordersDto = _mapper.Map<IEnumerable<OrderDto>>(orders);
         return ordersDto;
     }
 
-    public async Task<IEnumerable<OrderWithCustomerDto>> GetOrdersWithCustomersAsync(bool trackChanges)
+    public async Task<IEnumerable<OrderWithUserDto>> GetOrdersWithUserAsync(bool trackChanges)
     {
-        var ordersWithCustomers = await _repository.Order.GetOrdersWithCustomersAsync(trackChanges);
-        var ordersWithCustomersDto = ordersWithCustomers
-            .Select(oc => new OrderWithCustomerDto
+        var ordersWithUsers = await _repository.Order.GetOrdersWithUsersAsync(trackChanges);
+        var ordersWithUsersDto = ordersWithUsers
+            .Select(oc => new OrderWithUserDto
             {
-                CustomerName = oc.customerName,
+                UserName = oc.userName,
                 OrderDates = oc.orderDates.ToList(),
                 TotalAmount = oc.totalAmount
             })
         .ToList();
-        return ordersWithCustomersDto;
+        return ordersWithUsersDto;
     }
     
     public async Task OrderClosingAsync(int orderId, bool orderTrackChanges, bool carTrackChanges)

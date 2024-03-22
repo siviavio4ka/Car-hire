@@ -19,33 +19,33 @@ public class OrderRepository : RepositoryBase<Order>, IOrderRepository
         await FindByCondition(o => o.OrderId.Equals(orderId), trackChanges)
             .SingleOrDefaultAsync();
 
-    public async Task<IEnumerable<Order>> GetOrdersByCustomerIdAsync(int customerId, bool trackChanges) =>
-        await FindByCondition(o => o.CustomerId.Equals(customerId), trackChanges)
+    public async Task<IEnumerable<Order>> GetOrdersByUserIdAsync(int userId, bool trackChanges) =>
+        await FindByCondition(o => o.UserId.Equals(userId), trackChanges)
             .ToListAsync();
 
-    public async Task<IEnumerable<(string customerName, List<DateTime> orderDates, double totalAmount)>> GetOrdersWithCustomersAsync(bool trackChanges)
+    public async Task<IEnumerable<(string userName, List<DateTime> orderDates, double totalAmount)>> GetOrdersWithUsersAsync(bool trackChanges)
     {
         var rentalInfo = await FindAll(trackChanges)
-            .Include(o => o.Customer)
+            .Include(o => o.User)
             .Select(o => new
             {
-                CustomerName = o.Customer.Name,
+                UserName = o.User.Name,
                 OrderDate = o.OrderDate,
                 TotalAmount = o.Amount ?? 0
             })
             .ToListAsync();
 
         var groupedInfo = rentalInfo
-            .GroupBy(info => info.CustomerName)
+            .GroupBy(info => info.UserName)
             .Select(group => new
             {
-                CustomerName = group.Key,
+                UserName = group.Key,
                 OrderDates = group.Select(info => info.OrderDate).ToList(),
                 TotalAmount = group.Sum(info => info.TotalAmount)
             });
 
         return groupedInfo.Select(group =>
-            (group.CustomerName, group.OrderDates, group.TotalAmount));
+            (group.UserName, group.OrderDates, group.TotalAmount));
     }
 
     public void CreateOrder(Order order) => Create(order);

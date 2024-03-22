@@ -29,17 +29,17 @@ public class OrderController : ControllerBase
         return Ok(order);
     }
 
-    [HttpGet("customer/{customerId:int}")]
-    public async Task<IActionResult> GetOrdersByCustomerId(int customerId)
+    [HttpGet("user/{userId:int}")]
+    public async Task<IActionResult> GetOrdersByCustomerId(int userId)
     {
-        var orders = await _service.OrderService.GetOrdersByCustomerIdAsync(customerId, false);
+        var orders = await _service.OrderService.GetOrdersByUserIdAsync(userId, false);
         return Ok(orders);
     }
 
-    [HttpGet("orders-with-customers")]
-    public async Task<IActionResult> GetOrdersWithCustomers()
+    [HttpGet("orders-with-users")]
+    public async Task<IActionResult> GetOrdersWithUsers()
     {
-        var orders = await _service.OrderService.GetOrdersWithCustomersAsync(false);
+        var orders = await _service.OrderService.GetOrdersWithUserAsync(false);
         return Ok(orders);
     }
 

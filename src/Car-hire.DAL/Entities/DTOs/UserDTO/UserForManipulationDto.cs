@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Car_hire.DAL.Entities.DTOs.CustomerDTO;
+namespace Car_hire.DAL.Entities.DTOs.UserDTO;
 
-public abstract record CustomerForManipulationDto
+public abstract record UserForManipulationDto
 {
     [Required(ErrorMessage = "Name is required field")]
     public string? Name { get; init; }

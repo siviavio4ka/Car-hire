@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace Car_hire.DAL.Entities.Models;
 
-public class Customer
+public class User : IdentityUser
 {
-    public int CustomerId { get; set; }
+    public int UserId { get; set; }
     public string Name { get; set; } = string.Empty;
     public string PassportDetails { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
