@@ -1,7 +1,7 @@
 using AutoMapper;
 using Car_hire.BLL.Contracts;
 using Car_hire.DAL.Contracts;
-using Car_hire.DAL.Entities.DTOs.UserDTO;
+using Car_hire.DAL.Entities.DTOs.UserDTO.Auth;
 using Car_hire.DAL.Entities.Exceptions.NotFoundException;
 using Car_hire.DAL.Entities.Models;
 
@@ -22,49 +22,42 @@ internal sealed class UserService : IUserService
 
     public async Task<IEnumerable<UserDto>> GetAllUsersAsync(bool trackChanges)
     {
-        var customers = await _repository.User.GetAllUsersAsync(trackChanges);
-        var customersDto = _mapper.Map<IEnumerable<UserDto>>(customers);
-        return customersDto;
+        var users = await _repository.User.GetAllUsersAsync(trackChanges);
+        var usersDto = _mapper.Map<IEnumerable<UserDto>>(users);
+        return usersDto;
     }
 
     public async Task<UserDto> GetUserAsync(int userId, bool trackChanges)
     {
-        var customer = await _repository.User.GetUserAsync(userId, trackChanges)
+        var user = await _repository.User.GetUserAsync(userId, trackChanges)
             ?? throw new UserNotFoundException(userId);
         
-        var customerDto = _mapper.Map<UserDto>(customer);
-        return customerDto;
+        var userDto = _mapper.Map<UserDto>(user);
+        return userDto;
     }
 
     public async Task<IEnumerable<UserDto>> GetUsersByOrderDateAsync(DateTime orderDate, bool trackChanges)
     {
-        var customers = await _repository.User.GetUsersByOrderDateAsync(orderDate, trackChanges);
-        var customersDto = _mapper.Map<IEnumerable<UserDto>>(customers);
-        return customersDto;
+        var users = await _repository.User.GetUsersByOrderDateAsync(orderDate, trackChanges);
+        var usersDto = _mapper.Map<IEnumerable<UserDto>>(users);
+        return usersDto;
     }
 
-    public async Task CreateUserAsync(UserForCreationDto? customer)
+    public async Task UpdateUserAsync(int userId, UserForUpdateDto? user, bool trackChanges)
     {
-        var customerEntity = _mapper.Map<User>(customer);
-        _repository.User.CreateUser(customerEntity);
-        await _repository.SaveAsync();
-    }
-
-    public async Task UpdateUserAsync(int userId, UserForUpdateDto? customer, bool trackChanges)
-    {
-        var customerEntity = await _repository.User.GetUserAsync(userId, trackChanges)
+        var userEntity = await _repository.User.GetUserAsync(userId, trackChanges)
             ?? throw new UserNotFoundException(userId);
         
-        _mapper.Map(customer, customerEntity);
+        _mapper.Map(user, userEntity);
         await _repository.SaveAsync();
     }
 
     public async Task DeleteUserAsync(int userId, bool trackChanges)
     {
-        var customer = await _repository.User.GetUserAsync(userId, trackChanges)
+        var user = await _repository.User.GetUserAsync(userId, trackChanges)
             ?? throw new UserNotFoundException(userId);
 
-        _repository.User.DeleteUser(customer);
+        _repository.User.DeleteUser(user);
         await _repository.SaveAsync();
     }
 }
