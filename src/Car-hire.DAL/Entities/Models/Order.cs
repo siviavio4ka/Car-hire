@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace Car_hire.DAL.Entities.Models;
 
 public class Order
