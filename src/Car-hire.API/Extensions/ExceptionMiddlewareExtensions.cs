@@ -2,6 +2,7 @@ using System.Net;
 using Car_hire.DAL.Contracts;
 using Car_hire.DAL.Entities.ErrorModel;
 using Car_hire.DAL.Entities.Exceptions.BadRequestException;
+using Car_hire.DAL.Entities.Exceptions.ConflictException;
 using Car_hire.DAL.Entities.Exceptions.NotFoundException;
 using Microsoft.AspNetCore.Diagnostics;
 
@@ -25,6 +26,7 @@ public static class ExceptionMiddlewareExtensions
                     {
                         NotFoundException => StatusCodes.Status404NotFound,
                         BadRequestException => StatusCodes.Status400BadRequest,
+                        ConflictException => StatusCodes.Status409Conflict,
                         _ => StatusCodes.Status500InternalServerError
                     };
 
