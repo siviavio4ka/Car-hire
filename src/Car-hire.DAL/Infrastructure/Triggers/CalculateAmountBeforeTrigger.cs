@@ -17,7 +17,7 @@ public class CalculateAmountBeforeTrigger : IBeforeSaveAsyncTrigger<Order>
         if (context.ChangeType == ChangeType.Added || context.ChangeType == ChangeType.Modified)
         {
             context.Entity.Amount = context.Entity.HireHours * 
-            _applicationContext.Cars.Where(c => c.CarId == context.Entity.CarId).FirstOrDefault().HirePrice;
+            _applicationContext.Cars.Where(c => c.CarId == context.Entity.CarId).FirstOrDefault()!.HirePrice;
         }
 
         return Task.CompletedTask;
