@@ -1,0 +1,30 @@
+{
+    "Serilog": {
+        "Using": [
+            "Serilog.Sinks.Console",
+            "Serilog.Sinks.File"
+        ],
+        "MinimumLevel": "Information",
+        "WriteTo": [
+            {
+                "Name": "File",
+                "Args": {
+                    "path": "Logs/log.txt",
+                    "rollingInterval": "Day",
+                    "retainedFileCountLimit": 30,
+                    "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+                }
+            },
+            {
+                "Name": "Console",
+                "Args": {
+                    "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+                }
+            }
+        ],
+        "Enrich": [
+            "WithExceptionDetails",
+            "FromLogContext"
+        ]
+    }
+}
