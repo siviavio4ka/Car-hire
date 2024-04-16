@@ -16,7 +16,7 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
             .ToListAsync();
 
     public async Task<User> GetUserAsync(int userId, bool trackChanges) =>
-        await FindByCondition(c => c.UserId.Equals(userId), trackChanges)
+        await FindByCondition(c => c.Id.Equals(userId), trackChanges)
             .SingleOrDefaultAsync();
 
     public async Task<IEnumerable<User>> GetUsersByOrderDateAsync(DateTime orderDate, bool trackChanges) =>
