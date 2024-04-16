@@ -3,6 +3,7 @@ using Car_hire.BLL.Contracts;
 using Car_hire.DAL.Contracts;
 using Car_hire.DAL.Entities.DTOs.OrderDTO;
 using Car_hire.DAL.Entities.Enums;
+using Car_hire.DAL.Entities.Exceptions.ConflictException;
 using Car_hire.DAL.Entities.Exceptions.NotFoundException;
 using Car_hire.DAL.Entities.Models;
 
@@ -73,8 +74,14 @@ internal sealed class OrderService : IOrderService
         await _repository.SaveAsync();
     }
 
-    public async Task CreateOrderAsync(OrderForCreationDto order)
+    public async Task CreateOrderAsync(OrderForCreationDto order, bool trackChanges)
     {
+        var car = await _repository.Car.GetCarAsync(order.CarId, trackChanges)
+            ?? throw new CarNotFoundException(order.CarId);
+        
+        if (car.Status == Status.Busy || car.Status == Status.Repair)
+            throw new CarUnavailableConflictException();
+        
         var orderEntity = _mapper.Map<Order>(order);
         _repository.Order.CreateOrder(orderEntity);
         await _repository.SaveAsync();
