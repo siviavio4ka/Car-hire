@@ -1,5 +1,7 @@
 using Car_hire.API.Extensions;
+using Car_hire.DAL;
 using Car_hire.DAL.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,11 +22,8 @@ var app = builder.Build();
 var loggerManager = app.Services.GetRequiredService<ILoggerManager>();
 app.ConfigureExceptionHandler(loggerManager);
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
@@ -32,5 +31,16 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<ApplicationContext>();
+    if (context.Database.GetPendingMigrations().Any())
+    {
+        context.Database.Migrate();
+    }
+}
 
 app.Run();
